@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Button, TextField } from "@mui/material";
 
 class AddTodo extends Component {
-  // Create a local react state of the this component with a content property set to nothing.
+  // A local react state of the this component with a content property set to nothing.
   constructor() {
     super();
     this.state = {
       content: "",
     };
+    this.date = "";
   }
   // The handleChange function updates the react state with the new input value provided from the user.
   // "event" is the defined action a user takes. In this case, the event is triggered when the user types something
@@ -16,6 +17,7 @@ class AddTodo extends Component {
     this.setState({
       content: event.target.value,
     });
+    this.date = new Date().toLocaleString("en-US");
   };
   // The handleSubmit function collects the forms input and puts it into the react state.
   // event.preventDefault() is called to prevents default event behavior like refreshing the browser.
@@ -28,31 +30,30 @@ class AddTodo extends Component {
       this.setState({
         content: "",
       });
+      this.date = "";
     }
   };
   render() {
     return (
-      // 1. When rendering a component, you can render as many elements as you like as long as it is wrapped inside
-      // one div element.
-      // 2. The return statement should include a text field input with the handleChange function from above that
+      // 1. The return statement should include a text field input with the handleChange function from above that
       // is passed into an onChange event.
-      // 3. The return should also include a button with the handleSubmit function from above that is passed into
+      // 2. The return should also include a button with the handleSubmit function from above that is passed into
       // an OnClick event.
-      // 4. The value of the text field also should reflect the local state of this component.
+      // 3. The value of the text field also should reflect the local state of this component.
       <div>
         <TextField
+          data-testid="new-item-textfield"
           label="Add New Item"
           variant="outlined"
           onChange={this.handleChange}
           value={this.state.content}
-          data-testid="new-item-textfield"
         />
         <Button
+          data-testid="new-item-button"
           style={{ marginLeft: "10px" }}
           onClick={this.handleSubmit}
           variant="contained"
           color="primary"
-          data-testid="new-item-button"
         >
           Add
         </Button>
